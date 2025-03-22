@@ -12,3 +12,4 @@ Use command 'pip -r install requirement.txt'
 3. input StarCraft II.(定位元素,send_keys('')| click)
 
 
+# Pytest_WAP2
