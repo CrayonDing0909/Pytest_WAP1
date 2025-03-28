@@ -8,7 +8,7 @@ from selenium.webdriver.common.keys import Keys
 class TwitchMainPage(BasePage):
     SEARCH_BUTTON = (By.XPATH, "/html/body/div[1]/div[2]/a[2]/div/div[1]")
     SEARCH_INPUT = (By.XPATH, '//*[@id="twilight-sticky-header-root"]/div/div/div/div/input')
-    STREAMER_LINK = (By.XPATH, '//*[@id="page-main-content-wrapper"]/div/div/section[1]/div[2]/button')
+    # STREAMER_LINK = (By.XPATH, '//*[@id="page-main-content-wrapper"]/div/div/section[1]/div[2]/button')
     
     def navigate_to(self):
         self.driver.get("https://www.twitch.tv")
@@ -35,8 +35,13 @@ class TwitchMainPage(BasePage):
         scroll_down(self.driver, 2)
 
     def select_streamer(self):
-        streamer = WebDriverWait(self.driver, 60).until(
-            EC.element_to_be_clickable(self.STREAMER_LINK)
+        streamers = WebDriverWait(self.driver, 60).until(
+            EC.presence_of_all_elements_located((By.XPATH, "//button[contains(@class, 'ScCoreLink')]"))
         )
-        self.driver.execute_script("arguments[0].scrollIntoView(true);", streamer)
-        self.driver.execute_script("arguments[0].click();", streamer)
+
+        if streamers:
+            streamer = streamers[0]
+            self.driver.execute_script("arguments[0].scrollIntoView(true);", streamer)
+            self.driver.execute_script("arguments[0].click();", streamer)
+        else:
+            raise Exception("Streamer not found")

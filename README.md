@@ -1,5 +1,8 @@
 # Twitch WAP Automation Test Framework
 
+## Test result on local
+![image](https://github.com/CrayonDing0909/Pytest_WAP2/blob/main/Produce.gif)
+
 ## Project Structure
 ```
 wap_test/
@@ -31,11 +34,13 @@ Problem.json                   # For record problems when design the project and
 6. on the streamer page wait until all is load and take a screenshot
 
 ## How to Run
-1. Install the dependencies:
+1. Clone repository:
+   'git clone <repo-url>'
+2. Install the dependencies:
    ```bash
    pip install -r requirements.txt
    ```
-2. Run the tests:
+3. Run the tests:
    ```bash
    pytest tests/test_twich.py
    ``` 

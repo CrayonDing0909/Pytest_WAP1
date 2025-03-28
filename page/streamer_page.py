@@ -41,8 +41,11 @@ class StreamerPage(BasePage):
                 EC.presence_of_element_located(self.VIDEO_PLAYER)
             )
             self.screenshot_count = 0
-            max_attempts = 6
+            max_attempts = 20
             for attempt in range(max_attempts):
+                WebDriverWait(self.driver, 10).until(
+                lambda d: d.execute_script("return document.readyState") == "complete"
+                )
                 paused = self.driver.execute_script("return arguments[0].paused;", video_element)
                 if not paused:
                     current_time = self.driver.execute_script("return arguments[0].currentTime;", video_element)
@@ -78,8 +81,8 @@ class StreamerPage(BasePage):
 #             EC.presence_of_element_located((By.TAG_NAME, "video"))        
 #         )
 #         screenshot_count = 0
-#         max_attempts = 6  # 為了避免測試無限運行，限制最大嘗試次數
-#         # 多次檢查影片是否播放
+#         max_attempts = 6  
+#         # 測多次影片是否播放
 #         for _ in range(max_attempts):
 #             # 檢查影片是否暫停
 #             paused = self.driver.execute_script("return arguments[0].paused;", video_element)
